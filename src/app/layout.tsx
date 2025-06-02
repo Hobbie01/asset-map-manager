@@ -1,27 +1,30 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import RootLayout from "@/components/layout/RootLayout";
-import ErrorBoundary from "@/components/ErrorBoundary";
+// Instructions: Update root layout to include AuthProvider
 
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from '@/components/ui/sonner';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Asset Map Manager",
-  description: "ระบบจัดการทรัพย์สินแบบครบวงจร",
+  title: 'ระบบจัดการสินทรัพย์',
+  description: 'ระบบจัดการข้อมูลเจ้าของสินทรัพย์และสินทรัพย์',
 };
 
-export default function Layout({
+export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="th" suppressHydrationWarning>
+    <html lang="th">
       <body className={inter.className}>
-        <ErrorBoundary>
-          <RootLayout>{children}</RootLayout>
-        </ErrorBoundary>
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
